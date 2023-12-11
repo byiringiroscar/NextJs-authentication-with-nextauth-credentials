@@ -10,10 +10,7 @@ export const POST = async(request) => {
 
         const exists = await User.findOne({ $or: [{email}, {username}]});
         if(exists){
-            return (
-                NextResponse.json({message: 'Username or email already exists'}),
-                {status: 500}
-            )
+            return NextResponse.json({message: 'User already exists'}, {status: 500});
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         await User.create({username, email, password: hashedPassword})
