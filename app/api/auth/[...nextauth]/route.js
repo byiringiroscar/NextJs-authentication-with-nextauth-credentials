@@ -10,7 +10,6 @@ const login = async (credentials) => {
     connectDB();
     const user = await User.findOne({email: credentials.email});
     if(!user) throw new Error('Wrong credentials')
-    console.log('-------------helo----1-----')
     const isCorrect = await bcrypt.compare(credentials.password, user.password);
     if(!isCorrect) throw new Error('Wrong credentials')
     return user;
@@ -24,7 +23,8 @@ const login = async (credentials) => {
 
 export const authOptions = {
   pages: {
-    signIn: '/dashboard/login'
+    signIn: '/dashboard/login',
+    error: "/dashboard/login",
   },
   providers: [
     CredentialsProvider({
