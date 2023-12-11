@@ -33,7 +33,6 @@ const Register = () => {
         setPending(false);
         const form = e.target;
         form.reset();
-         
         router.push('/dashboard/login')
       }
       else{
