@@ -58,7 +58,7 @@ const Register = () => {
             <input className='border border-gray-400 mb-2 p-2' type='email' name='email' placeholder='Email' onChange={(e) => handleInput(e)} />
             <input className='border border-gray-400 mb-2 p-2' type='password' name='password' placeholder='Password' onChange={(e) => handleInput(e)} />
               {error && <span className='text-[red]'>{error}</span>}
-            <button className='border border-gray-400 p-2'>{ pending ? "Registering..." : "Register" }</button>
+            <button className='border border-gray-400 p-2' disabled={pending ? true : false}>{ pending ? "Registering..." : "Register" }</button>
             </form>
         </div>
     </div>

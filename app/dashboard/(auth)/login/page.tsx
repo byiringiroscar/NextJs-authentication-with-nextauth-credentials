@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { signIn, useSession } from 'next-auth/react'
 
 const Login = () => {
   const router = useRouter()
@@ -21,24 +22,22 @@ const Login = () => {
     }
     try{
       setPending(true);
-      const res = await fetch('/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(info)
-      })
-      if(res.ok){
+      const res: any = await signIn("credentials", { 
+        email: info.email,
+        password: info.password,
+        redirect: false,
+       });
+
+       if(res.error){
+          setError('Invalid Credentials.')
+          setPending(false)
+          return
+       }
         setPending(false);
         const form = e.target;
         form.reset();
-        router.push('/dashboard/login')
-      }
-      else{
-        const errorData = await res.json()
-        setError(errorData.message)
-        setPending(false)
-      }
+        router.replace('/dashboard')
+
 
     }
     catch(err){
@@ -54,7 +53,7 @@ const Login = () => {
             <form className='flex flex-col' onSubmit={handleSubmit}>
             <input className='border border-gray-400 mb-2 p-2' name='email' type='text' placeholder='Email' onChange={(e) => handleInput(e)} />
             <input className='border border-gray-400 mb-2 p-2' name='password' type='password' placeholder='Password' onChange={(e) => handleInput(e)} />
-            <button className='border border-gray-400 p-2'>{ pending ? "loading..." : "Login" }</button>
+            <button className='border border-gray-400 p-2' disabled={pending ? true : false}>{ pending ? "loading..." : "Login" }</button>
              {error && <span className='text-[red]'>{error}</span>}
             </form>
         </div>
