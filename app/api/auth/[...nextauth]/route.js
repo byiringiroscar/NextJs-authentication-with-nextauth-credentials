@@ -36,11 +36,7 @@ const handler =  NextAuth({
           throw new Error(err)
         }
       }
-    }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
+    })
   ],
   pages: {
     error: "/dashboard/login",
