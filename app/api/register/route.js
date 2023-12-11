@@ -13,6 +13,7 @@ export const POST = async(request) => {
             return NextResponse.json({message: 'User already exists'}, {status: 500});
         }
         const hashedPassword = await bcrypt.hash(password, 10);
+        
         await User.create({username, email, password: hashedPassword})
         return NextResponse.json({message: 'User registered successfully'}, {status: 201});
         }
