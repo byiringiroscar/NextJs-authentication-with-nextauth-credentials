@@ -1,7 +1,9 @@
 'use client'
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 const Register = () => {
+  const router = useRouter()
   const [info, setInfo] = useState({
     username: "",
     email: "",
@@ -31,7 +33,8 @@ const Register = () => {
         setPending(false);
         const form = e.target;
         form.reset();
-        console.log('user registered')
+         
+        router.push('/dashboard/login')
       }
       else{
         const errorData = await res.json()
